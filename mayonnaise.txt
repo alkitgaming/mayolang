@@ -1,3 +1,17 @@
+new-jar func;
+  ingredients hellmans one;
+  contains hellmans;
+open-jar func;
+  spread(one);
+close-jar func;
+
+
+
+
+
+
+
+
 new jar hello;
 open jar hello;
     spread "hello";

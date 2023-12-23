@@ -5,22 +5,20 @@ int main(char *name)
 {
     if (!name) return -1;
     
-    char read_buf[2048];
+    char readBuf[2048];
     Lang_Statement_t in[500];
     Lang_Statement_t *current;
     int counter = 0;
     int i;
-    FILE *file_p = fopen("mayonnaise.txt", "r+");
+    FILE *file_p = fopen("C:\\Users\\alkit\\Downloads\\mayolang\\mayolang\\mayonnaise.txt", "r+");
     FILE *out_p = fopen("mayonnaise.c", "w+");
-    if (!file_p) printf("why");
-
-    while(fscanf(file_p, "%2047s", read_buf) != EOF)
+    while(fscanf(file_p, "%2047s", readBuf) != EOF)
     {
         current = &(in[counter]);
-        current->statementLength += strlen(read_buf);
-        strcat(current->statement, read_buf);
+        current->statementLength += strlen(readBuf);
+        strcat(current->statement, readBuf);
 
-        if (strchr(read_buf, ';') == NULL) 
+        if (strchr(readBuf, ';') == NULL) 
         {
             current->statementLength += 1;
             strcat(current->statement, " ");
@@ -35,7 +33,9 @@ int main(char *name)
         printf("%d %d %s\n\n", in[i].statementNumber, in[i].statementLength, in[i].statement);
     }
 
+    parseStatements(&(in[0]), counter);
+
     fclose(file_p);
-    fclose(out_p);
+    // fclose(out_p);
     return 0;
 }
