@@ -1,0 +1,22 @@
+new jar hello;
+open jar hello;
+    spread "hello";
+close jar hello;
+
+new jar world;
+open jar world;
+    spread "world";
+close jar world;
+
+new jar addition;
+    made from miraclewhip one, hellmans two;
+    tastes like miraclewhip;
+open jar addition;
+    taste mix(one, two);
+close jar addition;
+
+hunger;
+    miraclewhip one is 5; // float
+    hellmans two is 10; //int32
+    hello(one, two);
+full;
