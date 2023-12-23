@@ -1,0 +1,6 @@
+{
+  "files.associations": {
+    "*.sqlc": "c",
+    "mayocomp2.h": "c"
+  }
+}

@@ -1,22 +1,18 @@
-#include "mayocomp2.h"
-typedef struct Statement_t
-{
-    int statementNumber;
-    char statement[2047];
-    int statementLength;
-} Statement_t;
+#include "mayoincl.h"
+#include "mayoparsegen.h"
 
 int main(char *name)
 {
     if (!name) return -1;
     
     char read_buf[2048];
-    Statement_t in[500];
-    Statement_t *current;
+    Lang_Statement_t in[500];
+    Lang_Statement_t *current;
     int counter = 0;
     int i;
-    FILE *file_p = fopen("mayonnaise.mayo", "r+");
+    FILE *file_p = fopen("mayonnaise.txt", "r+");
     FILE *out_p = fopen("mayonnaise.c", "w+");
+    if (!file_p) printf("why");
 
     while(fscanf(file_p, "%2047s", read_buf) != EOF)
     {
@@ -32,6 +28,11 @@ int main(char *name)
         }
         current->statementNumber = counter + 1;
         counter++;
+    }
+
+    for(i = 0; i < 10; i++)
+    {
+        printf("%d %d %s\n\n", in[i].statementNumber, in[i].statementLength, in[i].statement);
     }
 
     fclose(file_p);
