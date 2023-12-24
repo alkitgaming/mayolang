@@ -1,17 +1,15 @@
 #include "mayoincl.h"
 #include "mayoparsegen.h"
 
-int main(char *name)
-{
-    if (!name) return -1;
-    
+int main()
+{   
     char readBuf[2048];
     Lang_Statement_t in[500];
     Lang_Statement_t *current;
     int counter = 0;
     int i;
-    FILE *file_p = fopen("C:\\Users\\alkit\\Downloads\\mayolang\\mayolang\\mayonnaise.txt", "r+");
-    FILE *out_p = fopen("mayonnaise.c", "w+");
+    FILE *file_p = fopen("C:\\Users\\alkit\\OneDrive\\Documents\\progaming\\esolang\\mayonnaise.txt", "r+");
+    // FILE *out_p = fopen("mayonnaise.c", "w+");
     while(fscanf(file_p, "%2047s", readBuf) != EOF)
     {
         current = &(in[counter]);

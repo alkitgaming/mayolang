@@ -17,32 +17,34 @@ void parseStatements(Lang_Statement_t *statements, int statementsLength)
 
 C_Func_t parseNewFunction(Lang_Statement_t *statements)
 {
-  int counter;
-  int openIndex, endIndex;
+  int counter = 0;
+  int openIndex = -1, endIndex = -1;
   char word[2047];
 
-  int nameStartIndex, nameSemicolonIndex, nameCounter = 0;
+  char *nameStartIndex = 0x0, *nameSemicolonIndex = 0x0;
+  int nameCounter = 0;
   while(statements[counter].statement != NULL)
   {
     sscanf(statements[counter].statement, "%s", word);
-    if(strcmp(word, "close-jar"))
+    if(!strcmp(word, "close-jar"))
     {
       endIndex = counter;
-      if (openIndex != NULL) break;
+      if (openIndex != -1) break;
     }
-    else if (strcmp(word, "open-jar"))
+    else if (!strcmp(word, "open-jar"))
     {
       openIndex = counter;
     }
+    counter++;
   }
 
-  C_Func_t structure;
-  if (endIndex == NULL) reportCompileError(statements[0], "No jar-close found.");
-  else if (openIndex == NULL) reportCompileError(statements[0], "No jar-open found.");
-  nameStartIndex = statements[0].statement + strlen("new-jar ");
+  C_Func_t *structure = malloc(sizeof(C_Func_t));
+  if (endIndex == -1) reportCompileError(statements[0], "No jar-close found.");
+  else if (openIndex == -1) reportCompileError(statements[0], "No jar-open found.");
+
+  nameStartIndex = &(statements[0].statement[0]) + strlen("new-jar ");
   nameSemicolonIndex = strchr(statements[0].statement, ';');
 
-  char *name = malloc(sizeof(char) * nameSemicolonIndex-nameStartIndex);  
-  structure.nameLength = nameSemicolonIndex - nameStartIndex;
-  strncpy(structure.name, name, structure.nameLength);
+  structure->nameLength = nameSemicolonIndex - nameStartIndex;
+  strncpy(structure->name, nameStartIndex, structure->nameLength);
 }

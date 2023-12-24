@@ -3,8 +3,14 @@ new-jar func;
   contains hellmans;
 open-jar func;
   spread(one);
+  take one;
 close-jar func;
 
+int func(int one)
+{
+    printf("%d", &one);
+    return one;
+}
 
 
 
