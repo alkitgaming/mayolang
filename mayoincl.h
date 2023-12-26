@@ -29,7 +29,8 @@ typedef struct C_Variable_t
 
 typedef struct C_Func_t
 {
-  C_Variable_t params;
+  C_Variable_t *params;
+  int paramCount;
   C_Variable_t retval;
   char* name;
   int nameLength;

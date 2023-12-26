@@ -1,5 +1,6 @@
 #include "mayoincl.h"
 #include "mayoparsegen.h"
+#include "mayocomperr.h"
 
 void parseStatements(Lang_Statement_t *statements, int statementsLength)
 {
@@ -15,9 +16,9 @@ void parseStatements(Lang_Statement_t *statements, int statementsLength)
   }
 }
 
-C_Func_t parseNewFunction(Lang_Statement_t *statements)
+C_Func_t *parseNewFunction(Lang_Statement_t *statements)
 {
-  int counter = 0;
+  int counter = 0, i, actionsIndex = 0;
   int openIndex = -1, endIndex = -1;
   char word[2047];
 
@@ -39,12 +40,23 @@ C_Func_t parseNewFunction(Lang_Statement_t *statements)
   }
 
   C_Func_t *structure = malloc(sizeof(C_Func_t));
-  if (endIndex == -1) reportCompileError(statements[0], "No jar-close found.");
-  else if (openIndex == -1) reportCompileError(statements[0], "No jar-open found.");
+  
+  if (endIndex == -1) reportCompileError(&statements[0], "No jar-close found.");
+  else if (openIndex == -1) reportCompileError(&statements[0], "No jar-open found.");
 
   nameStartIndex = &(statements[0].statement[0]) + strlen("new-jar ");
   nameSemicolonIndex = strchr(statements[0].statement, ';');
 
   structure->nameLength = nameSemicolonIndex - nameStartIndex;
+  structure->name = malloc(sizeof(char) * structure->nameLength);
   strncpy(structure->name, nameStartIndex, structure->nameLength);
+
+  structure->actionsLength = endIndex - openIndex - 1;
+  structure->actions = malloc(structure->actionsLength * sizeof(Lang_Statement_t));
+  for (i = openIndex + 1; i < endIndex; i++)
+  { 
+    (structure->actions[actionsIndex]) = statements[i];
+  }
+
+  return structure;
 }

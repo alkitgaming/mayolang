@@ -34,6 +34,5 @@ int main()
     parseStatements(&(in[0]), counter);
 
     fclose(file_p);
-    // fclose(out_p);
     return 0;
 }
