@@ -8,4 +8,5 @@
 */
 void parseStatements(Lang_Statement_t *statements, int statementsLength);
 C_Func_t *parseNewFunction(Lang_Statement_t *statements);
+C_Variable_t *parseNewVariable(char *text);
 #endif
